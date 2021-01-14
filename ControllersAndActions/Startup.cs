@@ -26,7 +26,7 @@ namespace ControllersAndActions
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseRouting();
+            //app.UseRouting();
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseSession();
