@@ -45,6 +45,28 @@ namespace ControllersAndActions.Controllers
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        public ViewResult ReceiveForm(string name, string city) => View("Result", $"{name} влачит свое жалкое существование в {city}");
+        //public ViewResult ReceiveForm(string name, string city) => View("Result", $"{name} влачит свое жалкое существование в {city}");
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        //[HttpPost]
+        //public RedirectToActionResult ReceiveForm(string name, string city) => RedirectToAction(nameof(Data), new { name = name, city = city });
+        //public ViewResult Data(string name, string city) => View("Result", $"{name} есть результат редиректа в {city}");
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+        [HttpPost]
+        public RedirectToActionResult ReceiveForm(string name, string city)
+        {
+            TempData["name"] = name;
+            TempData["city"] = city;
+            return RedirectToAction(nameof(Data));
+        }
+        public ViewResult Data()
+        {
+            string name = TempData["name"] as string;
+            string city = TempData["city"] as string;
+            return View("Result", $"{name} является результатом темпдаты из {city}");
+        }
     }
 }

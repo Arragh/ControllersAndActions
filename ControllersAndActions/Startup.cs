@@ -15,7 +15,7 @@ namespace ControllersAndActions
         public void ConfigureServices(IServiceCollection services)
         {
             //services.AddControllersWithViews();
-            services.AddMvc(options => options.EnableEndpointRouting = false);
+            services.AddMvc(); // (options => options.EnableEndpointRouting = false);
             services.AddMemoryCache();
             services.AddSession();
         }
@@ -26,19 +26,18 @@ namespace ControllersAndActions
                 app.UseDeveloperExceptionPage();
             }
 
-            //app.UseRouting();
+            app.UseRouting();
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseSession();
-            app.UseMvcWithDefaultRoute();
+            //app.UseMvcWithDefaultRoute();
 
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapGet("/", async context =>
-            //    {
-            //        await context.Response.WriteAsync("Hello World!");
-            //    });
-            //});
+            app.UseEndpoints(endpoints =>
+            {
+                //endpoints.MapControllerRoute(null, "{name}/{city}", new { controller = "Home", action = "Data" });
+                endpoints.MapControllerRoute(null, "{controller=Home}/{action=Data}/RedirectResult/{name}/{city}");
+                endpoints.MapControllerRoute("MyRoute", "{controller=Home}/{action=Index}/{id?}/{*catchall}");
+            });
         }
     }
 }
